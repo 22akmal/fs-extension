@@ -1,16 +1,25 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useField } from "../hooks/index"
+import { useContext } from "react"
+import CounterContext from "../counterContext"
 
-const CreateNew = ({ addNew }) => {
-  const [content, setContent] = useState("")
-  const [author, setAuthor] = useState("")
-  const [info, setInfo] = useState("")
+const CreateNew = () => {
+  const [content, resetContent] = useField('content')
+  const [author, resetAuthor] = useField('author')
+  const [info, resetInfo] = useField('info')
+  const {addAnecdote} = useContext(CounterContext)
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    addNew({ content, author, info, votes: 0 })
+    await addAnecdote({ content: content.value, author: author.value, info: info.value, votes: 0 })
     navigate("/")
+  }
+
+  const handleReset = () => {
+    resetContent()
+    resetAuthor()
+    resetInfo()
   }
 
   return (
@@ -19,29 +28,18 @@ const CreateNew = ({ addNew }) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input
-            name="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
+          <input {...content} />
         </div>
         <div>
           author
-          <input
-            name="author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
+          <input {...author} />
         </div>
         <div>
           url for more info
-          <input
-            name="info"
-            value={info}
-            onChange={(e) => setInfo(e.target.value)}
-          />
+          <input {...info} />
         </div>
-        <button>create</button>
+        <button type="submit">create</button>
+        <button onClick={handleReset} type="button">reset</button>
       </form>
     </div>
   )
