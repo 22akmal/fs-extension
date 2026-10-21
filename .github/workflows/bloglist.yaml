@@ -18,8 +18,8 @@ jobs:
     env:
       NODE_ENV: test
       PORT: 3001
-      SECRET: ci-test-secret
-      TEST_MONGODB_URI: mongodb://localhost:27017/bloglist-test
+      SECRET: ${{ secrets.SECRET }}
+      TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
 
     steps:
       - uses: actions/checkout@v4
