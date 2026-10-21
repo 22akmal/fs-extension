@@ -8,19 +8,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    services:
-      mongodb:
-        image: mongo:7
-        ports:
-          - 27017:27017
-
     env:
-      NODE_ENV: test
       PORT: 3001
       SECRET: ${{ secrets.SECRET }}
       TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
-
     steps:
       - uses: actions/checkout@v4
 
@@ -36,7 +27,7 @@ jobs:
         working-directory: bloglist/client
         run: npm ci
 
-      - name: Install test dependencies
+      - name: Install Playwright test dependencies
         working-directory: bloglist-tests
         run: npm ci
 
