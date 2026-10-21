@@ -1,0 +1,25 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix client",
+    "start": "cross-env NODE_ENV=production npm start --prefix server",
+    "format": "prettier --write \"**/*.{js,jsx,json,css,md}\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "cross-env": "^10.1.0",
+    "prettier": "^3.9.10"
+  },
+  "dependencies": {
+    "zustand": "^5.0.15"
+  }
+}
